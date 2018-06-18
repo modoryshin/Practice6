@@ -89,6 +89,44 @@ namespace Practice6
                 Console.WriteLine("There are no elements in the sequance? such as {0}", M);
             }
         }
+        static int[] Counting(double[] s, int N, double M, int c, int[] j2, int i, int l)
+        {
+                if (i == N)
+                {
+                    Array.Resize(ref j2, j2.Length + 1);
+                    j2[j2.Length - 1] = c;
+                    return j2;
+                }
+                else
+                {
+                    if (s[i] == M)
+                    {
+                        c++;
+                        Array.Resize(ref j2, j2.Length + 1);
+                        j2[l] = i;
+                        l++;
+                    }
+                    i++;
+                   return Counting(s, N, M, c, j2, i, l);
+                }
+            }
+        static void Show(double[] s)
+        {
+            foreach (double x in s)
+                Console.WriteLine(x);
+        }
+        static void Final(int[] j)
+        {
+            if (j[j.Length - 1] == 0)
+                Console.WriteLine("There are no such elements.");
+            else
+            {
+                Console.WriteLine("This sequance has {0} elements such as this one.", j[j.Length - 1]);
+                Console.WriteLine("Their indexes are:");
+                for (int i = 0; i < j.Length - 1; i++)
+                    Console.WriteLine(j[i]);
+            }
+            }
         static void Main(string[] args)
         {
             double M;
@@ -98,7 +136,14 @@ namespace Practice6
             sequance = Fill(sequance);
             N = EnterN();
             M = EnterM();
-            Counting(sequance,N,M);
+            int count = 0;
+            int[] t1 = new int[0];
+            int i = 0;
+            int l = 0;
+            int[] t=Counting(sequance,N,M,count,t1,i,l);
+            Console.WriteLine("Elements of sequance from 1 to {0}:", N + 1);
+            Show(sequance);
+            Final(t);
             Console.ReadKey();
         }
     }
